@@ -19,7 +19,7 @@ const fileFilter = (req, file, cb) => {
     console.log("File MIME type:", file.mimetype);
     console.log("File name:", file.originalname);
 
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    const allowedTypes = ['image/jpeg', 'image/png'];
     if(allowedTypes.includes(file.mimetype)){
         cb(null, true);
     } else{
