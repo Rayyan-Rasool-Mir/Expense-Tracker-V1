@@ -38,7 +38,7 @@ exports.registerUser = async (req, res) => {
       user,
       token: generateToken(user._id),
     });
-  } catch(err) {
+  } catch (err) {
     res
       .status(500)
       .json({ message: "Error registering user", error: err.message });
@@ -47,16 +47,15 @@ exports.registerUser = async (req, res) => {
 
 //when user logs in
 exports.loginUser = async (req, res) => {
-  const {email, password} = req.body;
-  if(!email || !password){
-    return req.status(400).json({message: "All fields are required"});
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ message: "All fields are required" });
   }
 
-  try{
-    const user = await User.findOne({email});
-    if(!user || !(await user.comparePassword(password))) {
-      return res.status(400).json({message: "Invalid credentials"});
-
+  try {
+    const user = await User.findOne({ email });
+    if (!user || !(await user.comparePassword(password))) {
+      return res.status(400).json({ message: "Invalid credentials" });
     }
 
     res.status(200).json({
@@ -64,23 +63,22 @@ exports.loginUser = async (req, res) => {
       user,
       token: generateToken(user._id),
     });
-  }catch(err){
+  } catch (err) {
     res
       .status(500)
-      .json({ message: "Error registering user", error: err.message });
+      .json({ message: "Error logging in user", error: err.message });
   }
 };
 
 //when user registers, and we get the info
 exports.getUserInfo = async (req, res) => {
-  try{
+  try {
     const user = await User.findById(req.user.id).select("-password");
-    if(!user){
-      return res.status(404).json({message: "User not found"})
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
     res.status(200).json(user);
-
-  }catch (err){
+  } catch (err) {
     res
       .status(500)
       .json({ message: "Error registering user", error: err.message });
