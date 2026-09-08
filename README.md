@@ -2,7 +2,7 @@
 
 A full-stack Expense Tracker application being built using the **MERN Stack (MongoDB, Express.js, React.js, and Node.js)** as part of my web development learning journey.
 
-This project is based on a code-along tutorial and is helping me understand how frontend, backend, databases, authentication, and APIs work together in a real-world application.
+This project is a basic protest and is helping me understand how frontend, backend, databases, authentication, and APIs work together in a real-world application.
 
 ---
 
