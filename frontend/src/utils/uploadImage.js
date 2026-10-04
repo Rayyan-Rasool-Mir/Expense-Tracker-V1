@@ -9,13 +9,13 @@ const uploadImage = async (imageFile) =>{
     formData.append(("image", imageFile));
 
     try{
-        const respone = await axiosInstance.post(API_PATHS.IMAGE.UPLOAD_IMAGE, formData, {
+        const response = await stance.post(API_PATHS.IMAGE.UPLOAD_IMAGE, formData, {
             headers:{
                 'Content-Type' : 'multipart/form-data', //setting header for file upload
             },
         });
 
-        return respone.data;
+        return response.data;
     }catch(error){
         console.error('Error uploading the image:', error);
         throw error; //rethowing error for handling
