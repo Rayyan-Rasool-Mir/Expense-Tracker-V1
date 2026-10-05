@@ -6,7 +6,7 @@ import { validateEmail } from "../../utils/helper";
 import ProfilePhotoSelector from "../../Components/Inputs/ProfilePhotoSelector";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
-import { UserContext } from "../../context/userContext";
+import { UserContext } from "../../context/UserContext";
 import uploadImage from "../../utils/uploadImage";
 
 const SignUp = () => {
@@ -17,7 +17,7 @@ const SignUp = () => {
 
   const [error, setError] = useState(null);
 
-  const {updateUser} = useContext(UserContext);
+  const { updateUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   //handlling sign up form submission
@@ -27,17 +27,17 @@ const SignUp = () => {
 
     let profileImageURL = "";
 
-    if(!fullName){
+    if (!fullName) {
       setError("Please enter your username");
       return;
     }
 
-    if(!validateEmail(email)){
+    if (!validateEmail(email)) {
       setError("Please enter a valid email address");
       return;
     }
 
-    if(!password){
+    if (!password) {
       setError("Please enter a valid password");
       return;
     }
@@ -45,10 +45,9 @@ const SignUp = () => {
     setError("");
 
     //signup api is called
-    try{
-
+    try {
       //upload img if present
-      if(profilePic){
+      if (profilePic) {
         const imgUploadRes = await uploadImage(profilePic);
         profileImageURL = imgUploadRes.imageUrl || "";
       }
@@ -60,18 +59,18 @@ const SignUp = () => {
         profileImageURL,
       });
 
-      const {token, user} = response.data;
+      const { token, user } = response.data;
 
-      if(token){
+      if (token) {
         localStorage.setItem("token", token);
         updateUser(user);
         navigate("/dashboard");
       }
-    }catch(error){
-      if(error.response && error.response.data.message){
+    } catch (error) {
+      if (error.response && error.response.data.message) {
         setError(error.response.data.message);
-      }else{
-        setError("Something went wrong. Please try again")
+      } else {
+        setError("Something went wrong. Please try again");
       }
     }
   };
