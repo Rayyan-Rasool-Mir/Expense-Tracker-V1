@@ -74,15 +74,15 @@ As I build this project, I will be learning:
 
 ## 📂 Project Status
 
-Current Status: **Started Development**
+Current Status: **Mid Development: Implemented Summary Cards**
 
 Progress will be updated as I complete different sections of the project.
 
 ---
 
-# 🚀 V2 — Independent Improvements
+# 🚀 V2 — Further Improvements
 
-After completing the tutorial version, I plan to extend the project with features and engineering improvements that go beyond the original implementation.
+After completing the MVP version, I plan to extend the project with features and engineering improvements that go beyond the original implementation.
 
 ### Core Functionality
 
