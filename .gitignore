@@ -31,3 +31,6 @@ lerna-debug.log*
 *.njsproj*
 *.sln
 *.sw?
+
+#Uploads
+backend/uploads

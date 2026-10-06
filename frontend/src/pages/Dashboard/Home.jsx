@@ -4,6 +4,7 @@ import { useUserAuth } from "../../hooks/useUserAuth";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import InfoCard from "../../Components/Cards/InfoCard";
+import RecentTransactions from "../../Components/Dashboard/RecentTransactions";
 import { API_PATHS } from "../../utils/apiPaths";
 import { addThousandsSeparator } from "../../utils/helper";
 
@@ -66,6 +67,14 @@ const Home = () => {
             value = {addThousandsSeparator(dashboardData?.totalExpense || 0)}
             color = "bg-red-500"
           />
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          <RecentTransactions 
+            transactions = {dashboardData?.RecentTransactions}
+            onSeeMore = {() => navigate("/expense")}
+          />
+
         </div>
       </div>
     </DashboardLayout>
