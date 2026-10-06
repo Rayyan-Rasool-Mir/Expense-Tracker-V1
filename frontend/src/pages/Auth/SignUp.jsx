@@ -20,12 +20,12 @@ const SignUp = () => {
   const { updateUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  //handlling sign up form submission
+  //handlling sign up form submissionyy
 
   const handleSignUp = async (e) => {
     e.preventDefault();
 
-    let profileImageURL = "";
+    let profileImageUrl = "";
 
     if (!fullName) {
       setError("Please enter your username");
@@ -49,14 +49,14 @@ const SignUp = () => {
       //upload img if present
       if (profilePic) {
         const imgUploadRes = await uploadImage(profilePic);
-        profileImageURL = imgUploadRes.imageUrl || "";
+        profileImageUrl = imgUploadRes.imageUrl || "";
       }
 
       const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
         fullName,
         email,
         password,
-        profileImageURL,
+        profileImageUrl,
       });
 
       const { token, user } = response.data;
