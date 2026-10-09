@@ -6,6 +6,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import InfoCard from "../../Components/Cards/InfoCard";
 import RecentTransactions from "../../Components/Dashboard/RecentTransactions";
 import FinanceOverview from "../../Components/Dashboard/FinanceOverview";
+import ExpenseTransactions from "../../Components/Dashboard/ExpenseTransactions";
 import { API_PATHS } from "../../utils/apiPaths";
 import { addThousandsSeparator } from "../../utils/helper";
 
@@ -82,6 +83,10 @@ const Home = () => {
             totalExpense = {dashboardData?.totalExpense || 0}
           />
 
+          <ExpenseTransactions
+            transactions = {dashboardData?.last30DaysExpenses?.transactions || []}
+            onSeeMore = {() => navigate("/expense")}
+          />
 
         </div>
       </div>
