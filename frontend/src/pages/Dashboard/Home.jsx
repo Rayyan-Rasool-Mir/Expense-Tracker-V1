@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import InfoCard from "../../Components/Cards/InfoCard";
 import RecentTransactions from "../../Components/Dashboard/RecentTransactions";
+import FinanceOverview from "../../Components/Dashboard/FinanceOverview";
 import { API_PATHS } from "../../utils/apiPaths";
 import { addThousandsSeparator } from "../../utils/helper";
 
@@ -74,6 +75,13 @@ const Home = () => {
             transactions = {dashboardData?.RecentTransactions}
             onSeeMore = {() => navigate("/expense")}
           />
+
+          <FinanceOverview 
+            totalBalance = {dashboardData?.totalBalance || 0}
+            totalIncome = {dashboardData?.totalIncome || 0}
+            totalExpense = {dashboardData?.totalExpense || 0}
+          />
+
 
         </div>
       </div>
