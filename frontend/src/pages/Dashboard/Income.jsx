@@ -3,6 +3,8 @@ import DashboardLayout from "../../Components/layouts/DashboardLayout"
 import IncomeOverview from "../../Components/Income/IncomeOverview"
 import AddIncomeForm from "../../Components/Income/AddIncomeForm"
 import axiosInstance from '../../utils/axiosInstance';
+import IncomeList from '../../Components/Income/IncomeList';
+import DeleteAlert from '../../Components/DeleteAlert';
 import Modal from '../../Components/Modal';
 import { API_PATHS } from '../../utils/apiPaths';
 import toast  from '../../App';
@@ -100,6 +102,13 @@ const Income = () => {
               onAddIncome = {() => setOpenAddIncomeModal(true)}
             />
           </div>
+          <IncomeList
+            transactions = {incomeData}
+            onDelete = {(id) => {
+              setOpenDeleteAlert({show: true, data: id});
+            }}
+            onDownload = {handleDownloadIncomeDetails}
+          />
         </div>
 
         <Modal
@@ -108,6 +117,17 @@ const Income = () => {
           title = "Add Income"
         >
           <AddIncomeForm onAddIncome={handleAddIncome}/>
+        </Modal>
+
+        <Modal
+          isOpen={openDeleteAlert.show}
+          onClose={() => setOpenDeleteAlert({show: false, data: null})}
+          title = "Delete Income"
+        >
+          <DeleteAlert
+            content = "Are you sure you want to delete this income detail?"
+            onDelete = {() => deleteIncome(openDeleteAlert.data)}
+          />
         </Modal>
 
       </div>
