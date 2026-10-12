@@ -65,14 +65,28 @@ export const prepareIncomeBarChartData = (data = []) => {
   }));
 };
 
+// export const prepareExpenseLineChartData = (data = []) => {
+//   const sortedData = [...data].sort((a,b) => new Date(a.date) - new Date(b.date));
+
+//   const chartData = sortedData.map((item) => ({
+//     month: moment(item?.date).format("Do MMM"),
+//     amount: item?.amount,
+//     category: item?.category,
+//   }))
+
+//   return chartData;
+// }
+
 export const prepareExpenseLineChartData = (data = []) => {
-  const sortedData = [...data].sort((a,b) => new Date(a.date) - new Date(b.date));
+  const sortedData = [...data].sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
 
-  const chartData = sortedData.map((item) => ({
-    month: moment(item?.date).format("Do MMM"),
-    amount: item?.amount,
-    category: item?.category,
-  }))
-
-  return chartData;
-}
+  return sortedData.map((item, index) => ({
+    month: `${moment(item.date).format("Do MMM")} · ${item.category}`,
+    dateLabel: moment(item.date).format("Do MMM"),
+    amount: Number(item.amount),
+    category: item.category,
+    id: item._id || `${item.date}-${index}`,
+  }));
+};

@@ -5,7 +5,10 @@ import { API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
 import ExpenseOverview from "../../Components/Expense/ExpenseOverview";
 import AddExpenseForm from "../../Components/Expense/AddExpenseForm";
+import ExpenseList from "../../Components/Expense/ExpenseList";
+import DeleteAlert from "../../Components/DeleteAlert";
 import Modal from "../../Components/Modal";
+import toast from "react-hot-toast";
 
 const Expenses = () => {
   useUserAuth();
@@ -77,12 +80,30 @@ const Expenses = () => {
     }
   };
 
+  //deleting Expense
+  const deleteExpense = async (id) => {
+    try {
+      await axiosInstance.delete(API_PATHS.EXPENSE.DELETE_EXPENSE(id));
+
+      setOpenDeleteAlert({ show: false, data: null });
+
+      toast.success("Expense details deleted successfully");
+      fetchExpenseDetails();
+    } catch (error) {
+      console.error(
+        "Error deleting expense: ",
+        error.response?.data?.message || error.message,
+      );
+    }
+  };
+
+  //download expense details
+  const handleDownloadExpenseDetails = async () => {};
+
   useEffect(() => {
     fetchExpenseDetails();
 
-    return () => {
-
-    }
+    return () => {};
   }, []);
 
   return (
@@ -91,10 +112,18 @@ const Expenses = () => {
         <div className="grid grid-cols-1 gap-6">
           <div className="">
             <ExpenseOverview
-              transactions = {expenseData}
-              onExpenseIncome = {() => setOpenAddExpenseModal(true)}
+              transactions={expenseData}
+              onExpenseExpense={() => setOpenAddExpenseModal(true)}
             />
           </div>
+
+          <ExpenseList
+            transactions={expenseData}
+            onDelete={(id) => {
+              setOpenDeleteAlert({ show: true, data: id });
+            }}
+            onDownload={handleDownloadExpenseDetails}
+          />
         </div>
 
         <Modal
@@ -102,9 +131,19 @@ const Expenses = () => {
           onClose={() => setOpenAddExpenseModal(false)}
           title="Add Expense"
         >
-          <AddExpenseForm onAddExpense = {handleAddExpense} />
+          <AddExpenseForm onAddExpense={handleAddExpense} />
         </Modal>
 
+        <Modal
+          isOpen={openDeleteAlert.show}
+          onClose={() => setOpenDeleteAlert({show: false, data: null})}
+          title = "Delete Expense"
+        >
+          <DeleteAlert
+            content = "Are you sure you want to delete this expense detail?"
+            onDelete = {() => deleteExpense(openDeleteAlert.data)}
+          />
+        </Modal>
       </div>
     </DashboardLayout>
   );
