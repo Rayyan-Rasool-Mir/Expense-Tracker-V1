@@ -14,19 +14,19 @@ const IncomeList = ({transactions, onDelete, onDownload}) => {
                 </button>
             </div>
 
-            <div className="grid gird-cols-1 md:grid-cols-2">
-                {transactions?.map((income) => {
+            <div className="grid grid-cols-1 md:grid-cols-2">
+                {transactions?.map((income) => (
                     <TransactionInfoCard
-                        key = {income._id}
-                        title = {income.source}
-                        icon = {income.icon}
-                        date = {moment(income.date).format("Do MMM YYYY")}
-                        amount = {income.amount}
-                        type = "income"
-                        onDelete = {() => onDelete(income._id)}
+                        key={income._id}
+                        title={income.source}
+                        icon={income.icon}
+                        date={moment(income.date).format('Do MMM YYYY')}
+                        amount={income.amount}
+                        type="income"
+                        onDelete={() => onDelete(income._id)}
                     />
-                })}
-            </div>
+                ))}
+                </div>
         </div>
     )
 }

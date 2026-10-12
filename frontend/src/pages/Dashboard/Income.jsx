@@ -7,7 +7,7 @@ import IncomeList from '../../Components/Income/IncomeList';
 import DeleteAlert from '../../Components/DeleteAlert';
 import Modal from '../../Components/Modal';
 import { API_PATHS } from '../../utils/apiPaths';
-import toast  from '../../App';
+import toast  from 'react-hot-toast';
 
 const Income = () => {
 
@@ -80,7 +80,18 @@ const Income = () => {
   };
   
   //deleting income
-  const deleteIncome = async(id) => {};
+  const deleteIncome = async(id) => {
+    try{
+      await axiosInstance.delete(API_PATHS.INCOME.DELETE_INCOME(id));
+
+      setOpenDeleteAlert({show: false, data: null});
+
+      toast.success("Income details deleted successfully");
+      fetchIncomeDetails();
+    }catch(error){
+      console.error("Error deleting income: ", error.response?.data?.message || error.message)
+    }
+  };
 
   //download income details
   const handleDownloadIncomeDetails = async() => {};

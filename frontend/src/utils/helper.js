@@ -38,14 +38,29 @@ export const prepareExpenseBarChartData = (data = []) => {
     return chartData
 }
 
+// export const prepareIncomeBarChartData = (data = []) => {
+//     const sortedData = [...data].sort((a,b) => new Date(a.date) - new Date(b.date))
+
+//     const chartData = sortedData.map((item) => ({
+//         month: moment(item?.date).format("Do MMM"),
+//         amount: item?.amount,
+//         source: item?.source,
+//     }));
+
+//     return chartData;
+// }
+
 export const prepareIncomeBarChartData = (data = []) => {
-    const sortedData = [...data].sort((a,b) => new Date(a.date) - new Date(b.date))
+  const sortedData = [...data].sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
 
-    const chartData = sortedData.map((item) => ({
-        month: moment(item?.date).format("Do MMM"),
-        amount: item?.amount,
-        source: item?.source,
-    }));
-
-    return chartData;
-}
+  return sortedData.map((item, index) => ({
+    month: `${moment(item.date).format('Do MMM')} · ${item.source}`,
+    dateLabel: moment(item.date).format('Do MMM'),
+    amount: Number(item.amount),
+    source: item.source,
+    category: item.category,
+    id: item._id || `${item.date}-${index}`,
+  }));
+};
