@@ -1,5 +1,6 @@
 import React from "react";
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell} from "recharts";
+import { formatINR } from "../../utils/helper";
 
 const CustomBarChart = ({data}) => {
 
@@ -32,7 +33,7 @@ const CustomBarChart = ({data}) => {
                 {point.source || point.category || point.dateLabel || point.month}
             </p>
             <p className="text-sm text-gray-600">
-                Amount: <span className="text-sm font-medium text-gray-900">${payload[0].value}</span>
+                Amount: <span className="text-sm font-medium text-gray-900">₹{formatINR(payload[0].value)}</span>
             </p>
             </div>
         );
@@ -45,7 +46,11 @@ const CustomBarChart = ({data}) => {
                     <CartesianGrid stroke="none" />
 
                     <XAxis dataKey="month" tick = {{fontSize: 12, fill: "#555"}} stroke="none" />
-                    <YAxis tick = {{fontSize:12, fill: "#555"}} stroke="none" />
+                    <YAxis
+                        tickFormatter={(value) => `₹${formatINR(value)}`}
+                        tick={{ fontSize: 12, fill: "#555" }}
+                        stroke="none"
+                    />
 
                     <Tooltip content={CustomTooltip} />
 

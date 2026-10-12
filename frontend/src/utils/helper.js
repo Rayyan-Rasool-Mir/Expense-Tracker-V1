@@ -30,13 +30,16 @@ export const addThousandsSeparator = (num) => {
 };
 
 export const prepareExpenseBarChartData = (data = []) => {
-    const chartData = data.map((item) => ({
-        category: item?.category,
-        amount: item?.amount,
-    }))
-
-    return chartData
-}
+  return [...data]
+    .sort((a, b) => new Date(a.date) - new Date(b.date))
+    .map((item, index) => ({
+      month: `${moment(item.date).format("Do MMM")} · ${item.category}`,
+      dateLabel: moment(item.date).format("Do MMM"),
+      category: item.category,
+      amount: Number(item.amount) || 0,
+      id: item._id || `${item.date}-${index}`,
+    }));
+};
 
 // export const prepareIncomeBarChartData = (data = []) => {
 //     const sortedData = [...data].sort((a,b) => new Date(a.date) - new Date(b.date))
@@ -89,4 +92,14 @@ export const prepareExpenseLineChartData = (data = []) => {
     category: item.category,
     id: item._id || `${item.date}-${index}`,
   }));
+};
+
+export const formatINR = (amount) => {
+  const value = Number(amount ?? 0);
+
+  if (!Number.isFinite(value)) return "0";
+
+  return value.toLocaleString("en-IN", {
+    maximumFractionDigits: 2,
+  });
 };

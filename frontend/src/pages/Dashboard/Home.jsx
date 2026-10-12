@@ -11,8 +11,7 @@ import Last30DaysExpenses from "../../Components/Dashboard/Last30DaysExpenses";
 import RecentIncomeWithChart from "../../Components/Dashboard/RecentIncomeWithChart";
 import RecentIncome from "../../Components/Dashboard/RecentIncome";
 import { API_PATHS } from "../../utils/apiPaths";
-import { addThousandsSeparator } from "../../utils/helper";
-
+import { formatINR } from "../../utils/helper";
 import { LuHandCoins, LuWalletMinimal } from "react-icons/lu";
 import { IoMdCard } from "react-icons/io";
 
@@ -55,21 +54,21 @@ const Home = () => {
           <InfoCard 
             icon = {<IoMdCard />}
             label = "Total Balance"
-            value = {addThousandsSeparator(dashboardData?.totalBalance || 0)}
+            value={formatINR(dashboardData?.totalBalance || 0)}
             color = "bg-primary"
           />
 
           <InfoCard 
             icon = {<LuWalletMinimal />}
             label = "Total Income"
-            value = {addThousandsSeparator(dashboardData?.totalIncome || 0)}
+            value={formatINR(dashboardData?.totalIncome || 0)}
             color = "bg-orange-500"
           />
 
           <InfoCard 
             icon = {<LuHandCoins />}
             label = "Total Expenses"
-            value = {addThousandsSeparator(dashboardData?.totalExpense || 0)}
+            value={formatINR(dashboardData?.totalExpense || 0)}
             color = "bg-red-500"
           />
         </div>

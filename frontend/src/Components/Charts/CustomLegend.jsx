@@ -1,7 +1,7 @@
 import React from "react";
 
 const CustomLegend = ({active, payload}) => {
-    if(active && payload && payload.length){
+    if(payload && payload.length){
         return (
            <div className="flex flex-wrap justify-center gap-2 mt-4 space-x-6">
             {payload.map((entry, index)=>(
